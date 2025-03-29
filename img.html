@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Team Conrad for Life</title>
-    <style>
-        h1 {
-            color: pink;
-            font-family: 'Arial', sans-serif;
-            text-shadow: 2px 2px 4px magenta;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI API Demo</title>
 </head>
 <body>
-    <h1>Team Conrad for Life</h1>
-    <img src="2023_08_26-PM_6_26_team_conrad_for_life_photo_5_with_logo.jpg" 
-         alt="Team Conrad for Life - Beat the Bomb" 
-         style="max-width: 500px;">
-    <video width="500" controls>
-        <source src="video_1673124825 2.mp4" type="video/mp4">
-    </video>
+    <h1>AI API Demo</h1>
+    
+    <!-- Input for the user -->
+    <textarea id="inputText" placeholder="Enter your text here"></textarea>
+    <button id="submitBtn">Submit</button>
 
+    <!-- Displaying the API response -->
+    <div id="result">
+        <p>Response will appear here.</p>
+    </div>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            let inputText = document.getElementById("inputText").value;
+
+            // Make a POST request to your Python API (Flask app)
+            fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: inputText })  // Send input text as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = `<p>${data.response}</p>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("result").innerHTML = '<p>Error processing the request.</p>';
+            });
+        });
+    </script>
 </body>
 </html>
