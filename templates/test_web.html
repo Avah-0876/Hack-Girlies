@@ -9,17 +9,52 @@
     <h1>AI API Demo</h1>
     
     <!-- Input for the user -->
-    <textarea id="inputText" placeholder="Enter your text here"></textarea>
-    <button id="submitBtn">Submit</button>
+    <!--<textarea id="inputText" placeholder="Enter your text here"></textarea>-->
+    <button id="Pacman">Pacman</button>
 
     <!-- Displaying the API response -->
     <div id="result">
         <p>Response will appear here.</p>
     </div>
+    <div
+        class="btn-group">
+            <button>Pacman</button>
+            <button>Donkey Kong</button>
+            <button>Centipede</button>
+    </div>
+
+    <style>
+        .btn-group button {
+  background-color: #04AA6D; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+    </style>
+
+    
 
     <script>
-        document.getElementById("submitBtn").addEventListener("click", function() {
-            let inputText = document.getElementById("inputText").value;
+        document.getElementById("Pacman").addEventListener("click", function() {
+            let prompt = 'Pacman';
 
             // Make a POST request to your Python API (Flask app)
             fetch('/api', {
@@ -27,7 +62,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: inputText })  // Send input text as JSON
+                body: JSON.stringify({ text: prompt })  // Send input text as JSON
             })
             .then(response => response.json())
             .then(data => {
