@@ -8,6 +8,7 @@ app = Flask(__name__)
 def processor(prompt):
     """
     """
+    prompt = prompt + 'story that is 250 words long'
     #API key
     genai.configure(api_key="AIzaSyAGYW8CZPOtnEtYP_DsC9x35xhSBOLB4ew")
 
@@ -34,4 +35,3 @@ def api():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
