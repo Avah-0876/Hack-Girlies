@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nintendo Switch Replica</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Overall Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Switch Console Container */
+        .switch-console {
+            width: 900px;
+            height: 500px;
+            background-color: #222;
+            border-radius: 40px;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        /* Left Joy-Con */
+        .joycon-left {
+            width: 100px;
+            background-color: #3fa9f5; /* Blue Joy-Con */
+            border-top-left-radius: 40px;
+            border-bottom-left-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 8px;
+        }
+
+        /* Right Joy-Con */
+        .joycon-right {
+            width: 100px;
+            background-color: #ff4c4c; /* Red Joy-Con */
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Screen/Display */
+        .screen {
+            width: 700px;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Game Menu Inside the Screen */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            width: 90%;
+        }
+
+        .game-card {
+            width: 150px;
+            height: 200px;
+            background-color: #222;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .game-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #ffcc00;
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 70%;
+        }
+
+        .game-card h3 {
+            margin: 10px;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nintendo Switch Container -->
+    <div class="switch-console">
+
+        <!-- Left Joy-Con -->
+        <div class="joycon-left">
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+        </div>
+
+        <!-- Main Screen -->
+        <div class="screen">
+            <div class="game-grid">
+                <div class="game-card">
+                    <img src="mario.jpg" alt="Super Mario">
+                    <h3>Super Mario Odyssey</h3>
+                </div>
+                <div class="game-card">
+                    <img src="zelda.jpg" alt="Zelda">
+                    <h3>Breath of the Wild</h3>
+                </div>
+                <div class="game-card">
+                    <img src="pokemon.jpg" alt="Pokemon">
+                    <h3>Pokémon Sword</h3>
+                </div>
+                <div class="game-card">
+                    <img src="animal-crossing.jpg" alt="Animal Crossing">
+                    <h3>Animal Crossing</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Joy-Con -->
+        <div class="joycon-right">
+            <div class="button"></div>
+            <div class="button"></div>
+            <div class="button"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
