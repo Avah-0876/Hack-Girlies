@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI API Demo</title>
+</head>
+<body>
+    <h1>AI API Demo</h1>
+    
+    <!-- Input for the user -->
+    <textarea id="inputText" placeholder="Enter your text here"></textarea>
+    <button id="submitBtn">Submit</button>
 
+    <!-- Displaying the API response -->
+    <div id="result">
+        <p>Response will appear here.</p>
+    </div>
+
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            let inputText = document.getElementById("inputText").value;
+
+            // Make a POST request to your Python API (Flask app)
+            fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: inputText })  // Send input text as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = `<p>${data.response}</p>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("result").innerHTML = '<p>Error processing the request.</p>';
+            });
+        });
+    </script>
+</body>
+</html>
