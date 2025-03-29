@@ -2,7 +2,7 @@
 from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai 
 
-app = Flask(__name__, template_folder='Hack-Girlies')
+app = Flask(__name__)
 
 #Gemini AI Function
 def processor(prompt):
@@ -21,8 +21,9 @@ def processor(prompt):
 
 @app.route('/')
 def index():
-    return render_template('img.html') 
+    return render_template('test_web.html') 
 
+@app.route('/api', methods=['POST'])
 def api():
     data = request.get_json()  # Get JSON data from the request
     prompt = data.get('text')  # Extract the text
