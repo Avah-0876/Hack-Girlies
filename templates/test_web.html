@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI API Demo</title>
+    <title>Testing Buttons</title>
 </head>
 <body>
-    <h1>AI API Demo</h1>
+    <h1>Testing Buttons</h1>
     
-    <!-- Input for the user -->
-    <!--<textarea id="inputText" placeholder="Enter your text here"></textarea>-->
-    <button id="Pacman">Pacman</button>
-
-    <!-- Displaying the API response -->
-    <div id="result">
-        <p>Response will appear here.</p>
-    </div>
+    <!-- Creating the Buttons and Response -->
     <div
         class="btn-group">
-            <button>Pacman</button>
-            <button>Donkey Kong</button>
-            <button>Centipede</button>
+            <button class="game-btn" data-character='Pacman'>Pacman</button>
+            <button class="game-btn" data-character='Donkey Kong'>Donkey Kong</button> </button>
+            <button class="game-btn" data-character='Centipede'>Centipede</button>
     </div>
 
-    <style>
-        .btn-group button {
-  background-color: #04AA6D; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
-}
+    <!-- Era input -->
+    <select id="eraSelect">
+        <option value="1980s">1980s</option>
+        <option value="1990s">1990s</option>
+        <option value="future">Future</option>
+    </select>
 
-.btn-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
+    <!-- Submit -->
+    <button id="submitStory">Generate Story</button>
 
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    <!-- Result -->
+    <div id="result"></div>
 
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #3e8e41;
-}
-    </style>
-
-    
-
+    <!-- Button Actions -->
     <script>
-        document.getElementById("Pacman").addEventListener("click", function() {
-            let prompt = 'Pacman';
+        const selectedCharacters = new Set();
 
-            // Make a POST request to your Python API (Flask app)
-            fetch('/api', {
-                method: 'POST',
+        // Toggle character selection on click
+        document.querySelectorAll(".game-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const char = this.getAttribute("data-character");
+                if (selectedCharacters.has(char)) {
+                    selectedCharacters.delete(char);
+                    this.style.backgroundColor = ""; // Deselect
+                } else {
+                    selectedCharacters.add(char);
+                    this.style.backgroundColor = "#cce"; // Highlight selected
+                }
+            });
+        });
+
+        // Send data to Flask when "Generate Story" is clicked
+        document.getElementById("submitStory").addEventListener("click", function () {
+            const era = document.getElementById("eraSelect").value;
+            const charactersArray = Array.from(selectedCharacters);
+
+            if (charactersArray.length === 0 || !era) {
+                document.getElementById("result").innerHTML = "<p>Please select at least one character and an era.</p>";
+                return;
+            }
+
+            fetch("/api", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ text: prompt })  // Send input text as JSON
+                body: JSON.stringify({
+                    characters: charactersArray,
+                    era: era
+                })
             })
             .then(response => response.json())
             .then(data => {
                 document.getElementById("result").innerHTML = `<p>${data.response}</p>`;
             })
             .catch(error => {
-                console.error('Error:', error);
-                document.getElementById("result").innerHTML = '<p>Error processing the request.</p>';
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "<p>Error processing the request.</p>";
             });
         });
     </script>
