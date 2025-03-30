@@ -4,11 +4,27 @@ import google.generativeai as genai
 
 app = Flask(__name__)
 
+def cross(era):
+    """
+    """
+    return []
+
+def chars(character, era_lst):
+    """
+    """
+    if character not in era_lst:
+        era_lst.append(character)
+    return era_lst
+
 #Gemini AI Function
-def processor(prompt):
+def processor(characters, era):
     """
     """
-    prompt = prompt + 'story that is 250 words long'
+    prompt = 'give me a 250 word story about '
+    for c in characters:
+        prompt += c 
+    prompt = prompt + 'set in the' + era
+    
     #API key
     genai.configure(api_key="AIzaSyAGYW8CZPOtnEtYP_DsC9x35xhSBOLB4ew")
 
@@ -27,10 +43,13 @@ def index():
 @app.route('/api', methods=['POST'])
 def api():
     data = request.get_json()  # Get JSON data from the request
-    prompt = data.get('text')  # Extract the text
-    if not prompt:
-        return jsonify({'error': 'No text provided'}), 400
-    result = processor(prompt)
+    characters = data.get('characters', [])  # Expecting a list of characters
+    era = data.get('era', '')               # Expecting a string
+
+    if not characters or not era:
+        return jsonify({'error': 'Missing characters or era'}), 400
+
+    result = processor(characters, era)
     return jsonify({'response': result})
 
 if __name__ == '__main__':
