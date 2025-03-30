@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instruction Page</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #moon-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #controller {
+            position:absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1080px;
+            height: 1600px;
+            z-index: 1;
+        }
+        #image-button {
+            background-image: url('button3.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            box-sizing: border-box;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            z-index: 2;
+            border: none;
+            outline: none;
+       }
+
+    </style>
+</head>
+<body>
+    <button id="image-button">
+        <!-- You can optionally add text or another element here -->
+    </button>
+
+    <video id="moon-video" autoplay loop muted playsinline>
+        <source src="moon.mp4" type="video/mp4">
+    </video>
+    <img id="controller" src="era1.png" alt="controller">
+</body>
+</html>
