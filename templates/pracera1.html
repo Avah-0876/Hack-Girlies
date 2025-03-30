@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Buttons</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<style>
+    body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;  
+            max-width: 600px; 
+            top: 15%;
+            right: 15%;
+            transform: translate(50%, 50%); 
+        }
+        .image-container img {
+            width: 100%;  /* Make sure the image fills the container */
+            height: auto;
+        }
+        #moon-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #controller {
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1080px;
+            height: 1600px;
+            z-index: 1;
+        }
+        button{
+        background-color: black;
+        color: white;
+        padding: 12px 24px;
+        width: 108px;
+        height: 38px;
+        font-size: 9.5px;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        align-items: last baseline;
+        z-index: 2;
+    }
+    .gameone-but-group {
+        position: absolute;
+        top: 20%;
+        left: 43%;
+        transform: translate(-50%, -140%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 8;
+        gap: 25px;
+}
+
+    @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    }
+    #result{
+        position: absolute;
+        top: 50%;
+        left: 50%; 
+        z-index: 9;
+        transform: translateX(-50%);
+        color: white;
+
+    }
+
+</style>
+<body>
+    <div class="image-container">
+        <img id="controller" src="{{ url_for('static', filename = 'images/comp1.png')  }}" alt="controller">
+        <div class="gameone-but-group">
+        <button class="gameone-but" data-character='Computer Space'>pick me!</button>
+        <button class="gameone-but" data-character='Pong'>choose me!</button> 
+        <button class="gameone-but" data-character='Space Race'>love me!</button>
+        </div>
+        </div>
+
+    <video id="moon-video" autoplay loop muted playsinline>
+        <source src="{{ url_for('static', filename = 'videos/moon.mp4') }}" type="video/mp4">
+    </video>
+<div id="result"></div>
+
+<script>
+    const selectedCharacters = new Set();
+
+    document.querySelectorAll(".gameone-but").forEach(button => {
+        button.addEventListener("click", function () {
+            const char = this.getAttribute("data-character");
+            if (selectedCharacters.has(char)) {
+                selectedCharacters.delete(char);
+                this.style.backgroundColor = ""; // Deselect
+            } 
+            else {
+                selectedCharacters.add(char);
+                this.style.backgroundColor = "rgb(201, 55, 18)";
+            }
+            fetch("/api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    characters: char,
+                    timeperiod: "1960s to early 1970s"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `/era1print?result=${encodeURIComponent(data.response)}`;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "<p>Error processing the request.</p>";
+            });
+
+
+         });
+    });
+</script>
+
+</body>

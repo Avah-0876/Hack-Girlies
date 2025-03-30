@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>instruction page</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+    <style>
+        body {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars */
+            position: relative;
+        }
+
+        /* Background video styles */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Ensures the video covers the full screen */
+            z-index: -1; /* Puts the video behind the content */
+                 /* Overlay image styles */
+        }
+        button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: gold;
+        color: white;
+        padding: 12px 24px;
+        width: 250px;
+        height: 200px;
+        font-size: 20px;
+        cursor: pointer;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        z-index: 2;
+        }
+        /* logo */
+        #logo {
+            position:absolute;
+            top: 17%;
+            left: 61%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 550px;
+            z-index: 1;
+        }
+       /* Overlay instruction */
+       #instructions {
+        position: fixed;
+        top: 78%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        width: 780px;
+        height: 600px;
+        }
+       .timebuttons{
+        display: flex;
+        justify-content: center; /* Centers buttons horizontally */
+        align-items: center; /* Centers buttons vertically */
+        margin-top: 575px;
+        margin-left: 280px; 
+        display: flex;
+        z-index: 2;
+        gap: 50px;
+       }
+    .timebuttons a:link, .timebuttons a:visited {
+        text-decoration: none; /* Ensure no underline for visited and unvisited links */
+    }
+    </style>
+<body>
+    <div class = "timebuttons"> 
+        <a href="{{ url_for('pracera1') }}">
+            <button>The Birth of Arcades <br>(60s - early 70s)</button>
+        </a>
+        <a href="{{ url_for('era2') }}">
+            <button>The Golden Age of Arcades <br>(late 70s - early 80s)</button>
+        </a>
+        <a href="{{ url_for('era3') }}">
+            <button>The New Age of Arcades <br>(late 80s - 90s)</button>
+        </a>
+    </div>
+    <video id="background-video" autoplay loop muted>
+        <source src="{{ url_for('static', filename = 'videos/realistic.mp4') }}" type="video/mp4"> type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <img id="logo" src="{{ url_for('static', filename = 'images/url.png')  }}" alt="logo">
+    <img id="instructions" src="{{ url_for('static', filename = 'images/IMG_1267.png')  }} " alt="Instructions Bitch">
+</body>
+</html>

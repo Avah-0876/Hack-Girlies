@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nintendo Switch Replica</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+
+        /* Background video styles */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Ensures the video covers the full screen */
+            z-index: -1; /* Puts the video behind the content */
+        }
+
+       /* Overlay image styles */
+       #overlay-image {
+            position:absolute;
+            top: 17%;
+            left: 49%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 550px;
+            z-index: 1;
+       }
+       /* welcome box */
+       #welcomebox {
+        position: fixed;
+        bottom: 11.8%;
+        width: 800px;
+        height: 400px;
+        z-index: 1;
+       }
+       /* Overlay button */
+       button {
+          background-color: gold;
+          color: black;
+          font-size: 36px;
+          font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+          padding: 24px 48px;
+          cursor:pointer;
+          position: fixed;
+          bottom: 1%;
+          left: 43.7%
+       }
+       @keyframes bounce {
+        0%, 100% { transform: translateY(0);}
+        50% { transform: translateY(-5px)}
+       }
+       button:hover {
+        background-color: blueviolet;
+        animation: bounce 0.5s infinite;
+       }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('instructions') }}">
+        <button>START</button>
+    </a>
+    <!-- Background video -->
+    <video id="background-video" autoplay loop muted>
+        <source src="{{ url_for('static', filename = 'videos/realistic.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <img id="overlay-image" src="{{ url_for('static', filename = 'images/url.png')  }}" alt="Overlay Image">
+    <img id="welcomebox" src="{{ url_for('static', filename = 'images/IMG_1267 2.png')  }} " alt="Welcomebox">
+    <!-- Background music -->
+    <audio id="background-music" autoplay loop muted>
+        <source src="Wii_Sports_Title.mp3" type="audio/mp3">
+        Your browser does not support the audio tag.
+    </audio>
+    <!-- JavaScript to unmute audio on click -->
+    <script>
+        window.addEventListener('click', () => {
+            const audio = document.getElementById('background-music');
+            audio.muted = false; // Unmute audio after user interaction
+        });
+    </script>
+</body>
+</html>

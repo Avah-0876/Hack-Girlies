@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Buttons</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<style>
+    body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #moon-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #controller3 {
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            width: 1350px;
+            height: 975px;
+            z-index: 1;
+        }
+        button{
+        background-color: rgb(17, 168, 63);
+        color: white;
+        padding: 12px 24px;
+        width: 100px;
+        height: 32px;
+        font-size: 12px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        align-items: last baseline;
+        z-index: 4;
+    }
+    .gameone-but-group {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 8;
+}
+
+    .image-container {
+        position: relative;
+        width: 100%;  
+        max-width: 600px;  
+    }
+    .image-container img {
+        width: 100%;  /* Make sure the image fills the container */
+        height: auto;
+    }
+    @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    }
+
+    #result{
+        position: absolute;
+        top: 27%;
+        left: 35%; 
+        z-index: 9;
+        transform: translateX(-60%, -70%);
+        width: 400px;
+        color: white;
+
+    }
+</style>
+<body>
+    <div id="result">
+        <p>{{ request.args.get('result', 'No result available') }}</p>
+    </div>
+    <img id="controller3" src="{{ url_for('static', filename = 'images/LAST.png') }}" alt="controller3">
+    <video id="moon-video" autoplay loop muted playsinline>
+        <source src="{{ url_for('static', filename = 'videos/heads.mp4') }}" type="video/mp4">
+    </video>
+</body>

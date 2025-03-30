@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Buttons</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<style>
+    body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        #retrovid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #controller {
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1350px;
+            height: 975px;
+            z-index: 1;
+        }
+        button{
+        background-color: black;
+        color: white;
+        padding: 12px 24px;
+        width: 125px;
+        height: 40px;
+        font-size: 10px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        align-items: last baseline;
+        z-index: 4;
+    }
+    .gameone-but-group {
+        position: absolute;
+        top: 61%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        z-index: 8;
+}
+    .image-container {
+        position: relative;
+        width: 100%;  
+        max-width: 600px;  
+    }
+    .image-container img {
+        width: 100%;  
+        height: auto;
+    }
+    @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    }
+
+</style>
+<body>
+    <div class="imagecontainer">
+        <img id="controller" src="{{ url_for('static', filename = 'images/Untitled_Artwork.png')  }}" alt="controller">
+        <div class="gameone-but-group">
+        <button class="gameone-but" data-character='Sonic'>pick me!</button>
+        <button class="gameone-but" data-character='Mortal Kombat'>choose me!</button> 
+        <button class="gameone-but" data-character='Dance Dance Revolution'>love me!</button>
+        </div>
+        </div>
+    <video id="retrovid" autoplay loop muted playsinline>
+        <source src="{{ url_for('static', filename = 'videos/heads.mp4') }}" type="video/mp4">
+    </video>
+
+<div id="result"></div>
+
+    <video id="retrovid" autoplay loop muted playsinline>
+        <source src="{{ url_for('static', filename = 'videos/heads.mp4') }}" type="video/mp4">
+    </video>
+
+<script>
+    const selectedCharacters = new Set();
+
+    document.querySelectorAll(".gameone-but").forEach(button => {
+        button.addEventListener("click", function () {
+            const char = this.getAttribute("data-character");
+            if (selectedCharacters.has(char)) {
+                selectedCharacters.delete(char);
+                this.style.backgroundColor = ""; // Deselect
+            } 
+            else {
+                selectedCharacters.add(char);
+                this.style.backgroundColor = "rgb(201, 55, 18)";
+            }
+            fetch("/api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    characters: char,
+                    timeperiod: "1960s to early 1970s"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `/era3print?result=${encodeURIComponent(data.response)}`;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "<p>Error processing the request.</p>";
+            });
+
+
+         });
+    });
+</script>
+
+</body>
