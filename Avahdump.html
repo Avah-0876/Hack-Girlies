@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nintendo Switch Replica</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body{
+            display: flex;
+            background-color: black;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover; /* Ensures the video covers the full screen */
+        z-index: -1; /* Puts the video behind the content */
+        }   
+        .square-screen{
+            background-color: black;
+            width: 800px;
+            height: 400px;
+        }
+        .joycon-right{
+            height: 400px;
+            width: 100px;
+            background-color: red ; /* Red Joy-Con */
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+        .joycon-left{
+            height: 400px;
+            width: 100px;
+            background-color: blue;
+            border-top-left-radius: 40px;
+            border-bottom-left-radius: 40px;
+        }
+        </style>
+        <body>
+            <video id="background-video" autoplay loop muted>
+                <source src=24511135_retro-arcade-gaming-background_by_creativecore22_preview.mp4 type="video/mp4">
+            </video>
+
+    <audio id="background-music" autoplay loop muted>
+        <source src="Wii_Sports_Title.mp3" type="audio/mp3">
+    </audio>
+    <div class="joycon-left"></div>
+    <div class="square-screen"></div>
+    <div class="joycon-right"></div>
+    <script>
+        window.addEventListener('click', () => {
+            const audio = document.getElementById('background-music');
+            audio.muted = false; // Unmute audio after user interaction
+        });
+    </script>
